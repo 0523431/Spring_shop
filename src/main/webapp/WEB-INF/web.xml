@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+		 id="WebApp_ID"
+		 version="4.0">
+	
+	<display-name>shop02</display-name>
+	<welcome-file-list>
+    	<welcome-file>index.html</welcome-file>
+    	<welcome-file>index.htm</welcome-file>
+    	<welcome-file>index.jsp</welcome-file>
+    	<welcome-file>default.html</welcome-file>
+    	<welcome-file>default.htm</welcome-file>
+    	<welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+	
+	<!-- DispatcherServlet : 스프링이 제공하는 컨트롤러  -->
+	<servlet>
+		<servlet-name>shop02</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath:spring-mvc.xml
+				classpath:spring-db.xml
+			</param-value>
+		</init-param>
+		<!-- 로드 방식 설정 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- mvc2에서 (*.pro)로 설정한 것과 같은 의미 -->
+	<servlet-mapping>
+		<servlet-name>shop02</servlet-name>
+		<url-pattern>*.shop</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 한글 인코딩을 위한 필터(DispatcherServlet이 스프링이 제공하니까, mvc2처럼 우리가 만든게 아님) -->
+	<filter>
+		<filter-name>CharacterEncoding</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>
