@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- 이름이 handlerMapping인 객체
+		 ★★★ handlerMapping이란? url과 Controller 연결 설정 ★★★
+		 
+		 (method_properties에서 했던 작업)
+		 <value>/index.shop=indexController</value>
+		 index.shop 요청이 들어오면, indexController를 실행해라
+	-->
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>	/index.shop=indexController
+					/detail.shop=detailController
+			</value>
+		</property>
+	</bean>
+	<bean id="indexController"
+		  class="controller.IndexController"
+		  p:shopService-ref="shopService" />
+	<bean id="detailController"
+		  class="controller.DetailController"
+		  p:shopService-ref="shopService" />
+	
+	<bean id="shopService"
+		  class="logic.ShopService"
+		  p:itemDao-ref="itemDao" />
+	
+	<!-- itemDao에는 dataSource 즉, db Connection 객체가 주입될거야 -->
+	<bean id="itemDao" class="dao.ItemDao" p:dataSource-ref="dataSource" />
+	
+	
+	
+	
+	
+	<!-- 뷰 결정자 -->
+	<!--
+		ModelAndView mav = new ModelAndView("index"); // view 설정
+		즉, index가 들어와 있는 상태에서
+		prefix : WEB-INF/view/index
+		suffix : WEB-INF/view/index.jsp
+		그래서
+		webapp/WEB-INF/view/index.jsp의 경로를 알 수 있지? ㅇㅇ .. ㅠㅠㅠ
+	-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+</beans>
