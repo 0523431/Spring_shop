@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -36,7 +39,15 @@ public class UserDao {
 		template.update(sql, param);
 		// insert를 하고 UserEntryController로 넘어감
 	}
-	
 
+	public User selectOne(String userid) {
+		String sql = "select * from useraccount "
+						+ " where userid=:userid ";
+		
+		RowMapper<User> mapper = new BeanPropertyRowMapper<User>(User.class);
+		Map<String,String> param = new HashMap<String,String>();
+		param.put("userid", userid);
+		return template.queryForObject(sql, param, mapper);
+	}
 
 }

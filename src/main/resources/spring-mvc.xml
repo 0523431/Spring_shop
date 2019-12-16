@@ -18,14 +18,26 @@
 		 (method_properties에서 했던 작업)
 		 <value>/index.shop=indexController</value>
 		 index.shop 요청이 들어오면, indexController를 실행해라
+		 
+		 그러니까 url 별로 객체를 만들어 주는 과정 .. 자바에서 bean은 객체니까
 	-->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<value>
-				userEntry.shop=userEntryController
+				/userEntry.shop=userEntryController
+				/login.shop=loginController
 			</value>
 		</property>
 	</bean>
+	<!-- 12/16 로그인  Validator : 검증자-->
+	<bean id="loginController"
+		  class="controller.LoginController"
+		  p:shopService-ref="shopService"
+		  p:Validator-ref="loginValidator" />
+	<bean id="loginValidator"
+		  class="util.LoginValidator" />
+	
+	<!-- 12/13 회원가입 -->
 	<bean id="userEntryController"
 		  class="controller.UserEntryController"
 		  p:shopService-ref="shopService"
