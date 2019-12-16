@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- mvc라는 네임 스페이스를 추가로 설정함 -->
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd
+							http://www.springframework.org/schema/mvc
+							http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 3개의 패키지 안에서는 @Component로 객체화 할 거야 -->
+	<context:component-scan base-package="controller, logic, dao" />
+	<!-- mvc환경에서 annotation 설정 -->
+	<mvc:annotation-driven />
+	
+	<!-- url과 Controller 연결 설정  | 어떻게? 이름으로 연결할 수 있어 -->
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	
+	<!-- 뷰 결정자 -->
+	<!--
+		ModelAndView mav = new ModelAndView("index"); // view 설정
+		즉, index가 들어와 있는 상태에서
+		prefix : WEB-INF/view/index
+		suffix : WEB-INF/view/index.jsp
+		그래서
+		webapp/WEB-INF/view/index.jsp의 경로를 알 수 있지? ㅇㅇ .. ㅠㅠㅠ
+	-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	<!-- 약속된 이름 messageSource -->
+	<bean id="messageSource"
+		  class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 예외 처리 설정 -->
+	<bean id="exceptionHandler"
+		  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<value>
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 파일 업로드 설정
+		 maxUploadSize(최대 업로드 사이즈) = 100MB 정도
+		 maxInMemorySize = 10MB 정도
+		 
+		 enctype="multipart/form-data"형식인 경우 실행해서 파일정보 값을 넣어줌
+	-->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		  p:maxUploadSize="104857600"
+		  p:maxInMemorySize="10485760" />
+
+</beans>
