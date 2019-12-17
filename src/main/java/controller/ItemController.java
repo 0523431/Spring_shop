@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,8 +65,52 @@ public class ItemController {
 		// service를 통해서 저장해서 ShopService는 컨트롤러와 db를 중간에서 연결하는 클래스로 가는거야
 		service.itemCreate(item, request);
 		
-		// redirect: ==> 등록을 하게 되면, list.shop 요청을 재 호출하게 명령을 내림
+		// redirect: ==> 등록을 하게 되면, list.shop 요청을 재호출하게 명령을 내림
 		mav.setViewName("redirect:/item/list.shop");
+		return mav;
+	}
+	
+	// enctype이 multipart/form-data이기 때문에, post방식
+	@PostMapping("update")
+	public ModelAndView update(@Valid Item item, BindingResult bresult, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("item/edit"); // view : WEB-INF/view/item/edit.shop
+		
+		// 유효성 검증 @Valid
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		
+		service.itemUpdate(item, request);
+
+		// redirect: ==> 수정이 끝나면, list.shop 요청을 재호출하게 명령을 내림
+		mav.setViewName("redirect:/item/list.shop");
+		return mav;
+	}
+	
+	@RequestMapping("delete")
+	public ModelAndView itemDelete(String id) {
+		ModelAndView mav = new ModelAndView(); // 뷰 "item/list"?
+		
+		service.itemDelete(id);
+	
+		// redirect: ==> 수정이 끝나면, list.shop 요청을 재호출하게 명령을 내림
+		mav.setViewName("redirect:/item/list.shop");
+		return mav;
+	}
+	
+	/*	url이 detail.shop으로 들어와서 detail() 메서드가 호출 됨
+		파라미터 값을 같이 불러오고 (int id/String id/Integer id)	*/
+	// @RequestMapping("detail")
+	// get방식으로 들어오는 요청 중에 위에 형식이랑 맞지않으면 호출당함(그 외 요청정보)
+	// detail.shop / edit.shop / confirm.shop
+	@GetMapping("*")
+	public ModelAndView itemInfo(Integer id) { // id는 int, String도 가능
+		ModelAndView mav = new ModelAndView(); // null이면 url에 맞춰서 들어가게 됨 =====> @RequestMapping("*")인 경우 null이어야함
+		
+		Item itemInfo = service.itemInfo(id);
+		
+		mav.addObject("item", itemInfo);
 		return mav;
 	}
 	

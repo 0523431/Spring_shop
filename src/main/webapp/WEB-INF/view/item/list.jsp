@@ -28,8 +28,7 @@
 			<a href="detail.shop?id=${item.id}">${item.name}</a>
 		</td>
 		<td align="right">
-			<fmt:formatNumber value="${item.price}" type="CURRENCY" currencySymbol="" />
-			원
+			<fmt:formatNumber value="${item.price}" type="CURRENCY" currencySymbol="" />원
 		</td>
 		<td align="center">
 			<a href="edit.shop?id=${item.id}">수정</a>

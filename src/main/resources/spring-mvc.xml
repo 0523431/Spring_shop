@@ -17,9 +17,14 @@
 							http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
 	<!-- 3개의 패키지 안에서는 @Component로 객체화 할 거야 -->
-	<context:component-scan base-package="controller, logic, dao" />
+	<!-- aop패키지 추가 : 로그인 확인용 -->
+	<context:component-scan base-package="controller, logic, dao, aop" />
+	
 	<!-- mvc환경에서 annotation 설정 -->
 	<mvc:annotation-driven />
+	
+	<!-- AOP 설정 : 로그인확인을 위해서 -->
+	<aop:aspectj-autoproxy />
 	
 	<!-- url과 Controller 연결 설정  | 어떻게? 이름으로 연결할 수 있어 -->
 	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
@@ -56,10 +61,14 @@
 	</bean>
 	
 	<!-- 예외 처리 설정 -->
+	<!-- exception.LoginException=exception
+		 패키지.클래스명 = 뷰단 jsp명
+	-->
 	<bean id="exceptionHandler"
 		  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<value>
+				exception.LoginException=exception
 			</value>
 		</property>
 	</bean>

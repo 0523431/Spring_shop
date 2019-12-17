@@ -13,7 +13,7 @@ public class Item {
 	
 	@NotEmpty(message="상품명을 입력하세요")
 	private String name;
-	@NotNull(message="가격을 입력하ㅅㅔ요") // NotNull그닥 의미없는 기능(왜? int의 defalt가 0으로 지정되어있어서)
+	// @NotNull(message="가격을 입력하ㅅㅔ요") // NotNull그닥 의미없는 기능(왜? int의 defalt가 0으로 지정되어있어서)
 	@Min(value=10, message="10원 이상 가능합니다.")
 	@Max(value=100000, message="10만원 이상 가능합니다")
 	private int price;
