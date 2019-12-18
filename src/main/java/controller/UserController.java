@@ -107,6 +107,8 @@ public class UserController {
 	 * checkmain : 핵심로직이야 (받아서 user/main.shop으로 보내는거)
 	 * 
 	 * session은 aop를 실행하게 만드는 조건 때문에 넣어줌
+	 * 
+	 * UserLoginAspect 클래스에 해당하는 핵심로직
 	 */
 	@RequestMapping("main")
 	public String checkmain(HttpSession session) {

@@ -62,7 +62,10 @@
 	
 	<!-- 예외 처리 설정 -->
 	<!-- exception.LoginException=exception
-		 패키지.클래스명 = 뷰단 jsp명
+		  패키지.클래스명 = 뷰단 jsp명
+		 
+		  그러니까, 발생한 예외가 LoginException(UserLoginAspect에서 확인가능)이면
+		 WEB-INF > view > exception.jsp가 출력되는거야
 	-->
 	<bean id="exceptionHandler"
 		  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

@@ -62,7 +62,7 @@ public class ShopService {
 		}
 	}
 
-	public Item itemInfo(Integer id) {
+	public Item itemInfo(Integer id) { // 지역변수(여기서만 해당)
 		return itemDao.itemInfo(id);
 	}
 

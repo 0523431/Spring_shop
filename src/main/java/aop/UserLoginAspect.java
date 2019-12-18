@@ -31,9 +31,11 @@ public class UserLoginAspect {
 	 */
 	@Around("execution(* controller.User*.check*(..)) && args(.., session)")
 	public Object userLoginCheck(ProceedingJoinPoint joinPoint, HttpSession session) throws Throwable {
+		
+		// session으로 부터 값을 받아서 로그인 여부를 확인
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(loginUser ==null) {
-			// class LoginException .......
+			// class LoginException : 우리가 강제로 만든 예외 (로그인이 안된 경우)
 			throw new LoginException("로그인 후 거래하세요", "login.shop");
 		}
 		

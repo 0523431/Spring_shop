@@ -8,6 +8,8 @@
 	
 	에러페이지에서만 exception객체가 필요해, 그래서 써준게 isErrorPage="true"
 -->
+
+
 <script>
 	alert("${exception.message}");
 	location.href="${exception.url}";
