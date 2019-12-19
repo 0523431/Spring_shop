@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sitemesh>
+	<!-- 1. 환경설정 주소 설정  -주소 : value값 -->
+	<property name="decorators-file"
+			  value="/WEB-INF/decorators.xml" />
+
+	<excludes file="${decorators-file}" />
+	
+	<!-- 2. 번역기
+			문서의 형태는 text타입, html형태
+			parser의 이름이 class="" -->
+	<page-parsers>
+		<parser content-type="text/html"
+				class="com.opensymphony.module.sitemesh.parser.HTMLPageParser" />
+	</page-parsers>
+	
+	<!-- 3. 다양한 형태의 데코파일을 사용할 수 있음 -->
+	<decorator-mappers>
+		<mapper class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+		<param name="config" value="${decorators-file}" />
+		</mapper>
+	</decorator-mappers>
+</sitemesh>

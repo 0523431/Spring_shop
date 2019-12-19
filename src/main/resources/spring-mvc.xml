@@ -72,6 +72,7 @@
 		<property name="exceptionMappings">
 			<value>
 				exception.LoginException=exception
+				exception.CartEmptyException=exception
 			</value>
 		</property>
 	</bean>

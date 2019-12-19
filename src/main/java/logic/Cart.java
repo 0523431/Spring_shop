@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Cart {
 	private List<ItemSet> itemSetList = new ArrayList<ItemSet>();
+	private long total;
 	
 	public List<ItemSet> getItemSetList() {
 		return itemSetList;
@@ -14,8 +15,6 @@ public class Cart {
 	public void pushError(ItemSet itemSet) {
 		itemSetList.add(itemSet);
 	}
-	
-	
 	// itemSetList에 추가 됨
 	public void push(ItemSet inputItemSet) {
 		for(ItemSet listItem : itemSetList) {
@@ -27,4 +26,13 @@ public class Cart {
 		}
 		itemSetList.add(inputItemSet);
 	}
+
+	public long getTotal() {
+		long sum =0;
+		for(ItemSet listItem : itemSetList) {
+			sum += listItem.getItem().getPrice() * listItem.getQuantity();
+		}
+		return sum;
+	}
+	
 }

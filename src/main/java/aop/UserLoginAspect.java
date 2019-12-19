@@ -1,5 +1,6 @@
 package aop;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import exception.LoginException;
@@ -13,6 +14,7 @@ import org.aspectj.lang.annotation.Aspect;
 
 @Component
 @Aspect
+@Order(1)
 public class UserLoginAspect {
 	
 	/*

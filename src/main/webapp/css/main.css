@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+table {
+	width : 100%;
+	border-collapse : collapse;
+}
+th,td {
+	border : 2px solid #ffffff;
+	text-align : center;
+	padding : 8px;
+}
+th {
+	background-color : #eb9f9f;
+	color : #f8ecc9;
+}
+td {
+	background-color : #f1bbba;
+}
+caption {
+	color : #ffffff;
+	font-size : 20px;
+	background-color : #a79c8e;
+	border-radius:10px 30px;
+	padding : 10px;
+}
+input[type=text],input[type=password],textarea {
+	width : 100%;
+}
+.leftcol {
+	text-align : left;
+	vertical-align : top;
+}
+.lefttoptable {
+	height : 250px;
+	border-width : 0px;
+	text-align : left;
+	vertical-align : top;
+	padding : 0px;
+}
+a {
+	text-decoration : none;
+}

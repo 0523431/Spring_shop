@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.ItemDao;
+import dao.SaleDao;
+import dao.SaleItemDao;
 import dao.UserDao;
 
 // @Component + Service 기능 (컨트롤러와 db를 중간에서 연결)
@@ -23,6 +26,12 @@ public class ShopService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private SaleDao saleDao;
+	
+	@Autowired
+	private SaleItemDao saleItemDao;
+	
 	public List<Item> getItemList() {
 		return itemDao.list();
 	}
@@ -90,5 +99,34 @@ public class ShopService {
 
 	public User getUser(String userid) {
 		return userDao.selectOne(userid);
+	}
+	
+	// 주문확정 ..
+	// User loginUser : 로그인 정보
+	// Cart cart : 주문 정보
+	public Sale checkend(User loginUser, Cart cart) {
+		Sale sale = new Sale();
+		sale.setSaleid(saleDao.getMaxSaleId()); // saleid는 (기존 saleid +1)값
+		sale.setUser(loginUser); // 구매자 정보
+		sale.setUserid(loginUser.getUserid()); // 구매자 정보에서 >>> 구매자 아이디
+		sale.setUpdatetime(new Date()); // 주문 시간
+		saleDao.insert(sale); // 한번에 구매한 정보를 db에 저장하게 됨
+		
+		// 주문상품정보를 cart에서 조회
+		List<ItemSet> itemList = cart.getItemSetList();
+		int i =0;
+		for(ItemSet separateItem : itemList) {
+			
+			int saleItemId = ++i;
+			// saleItem 객체를 만드는 과정
+			// 생성자의 매개변수와 맞게
+			// sale.getSaleid() : saleid값 고정
+			// saleItemId : for문이 반복될 때 마다, 1>2>3 이렇게 증가하게 되
+			// separateItem : ItemSet 객체
+			SaleItem saleItem = new SaleItem(sale.getSaleid(), saleItemId, separateItem);
+			sale.getItemList().add(saleItem);
+			saleItemDao.insert(saleItem);
+		}
+		return sale;
 	}	
 }

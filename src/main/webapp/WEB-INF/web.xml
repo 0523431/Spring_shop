@@ -52,4 +52,19 @@
 		<filter-name>CharacterEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- sitemesh 설정 필터 -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>
+			com.opensymphony.sitemesh.webapp.SiteMeshFilter
+		</filter-class>
+	</filter>
+	<!--
+		/* : 모든 요청들은 다 sitemesh라는 이름을 가진 파일을 통해서 실행됨 (filter-name이 동일해야함)
+	-->
+	<filter-mapping>
+  		<filter-name>sitemesh</filter-name>
+  		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
