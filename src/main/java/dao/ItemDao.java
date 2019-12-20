@@ -61,7 +61,7 @@ public class ItemDao {
 		template.update(sql, proparam);
 	}
 
-	public Item itemInfo(Integer id) { // 여기서 내가 Integer로 한 건 => 지역변수(여기서만 해당)
+	public Item itemInfo(String id) { // 여기서 내가 Integer로 한 건 => 지역변수(여기서만 해당)
 //		Map<String, Integer> map = new HashMap<String, Integer>();
 //		map.put("id", id);
 //		return template.queryForObject("select * from item where id=:id", map, mapper);

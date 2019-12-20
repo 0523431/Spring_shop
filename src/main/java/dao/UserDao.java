@@ -70,4 +70,22 @@ public class UserDao {
 		// mapper의 정의가 User클래스이기때문에, 리턴타입이 User가 될 수 있는거야
 		// private RowMapper<User> mapper = new BeanPropertyRowMapper<User>(User.class);
 	}
+
+
+	public void update(User user) {
+		String sql = "update useraccount set "
+						+ " username=:username, phoneno=:phoneno, postcode=:postcode, "
+						+ " address=:address, email=:email, birthday=:birthday "
+						+ " where userid=:userid ";
+		SqlParameterSource proparam = new BeanPropertySqlParameterSource(user);
+		template.update(sql, proparam);
+	}
+
+
+	public void delete(String userid) {
+		String sql = "delete from useraccount where userid=:userid";
+		param.clear();
+		param.put("userid", userid);
+		template.update(sql, param);		
+	}
 }

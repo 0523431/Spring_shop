@@ -25,7 +25,7 @@ public class CartController {
 	/* 매개변수는
 			id, 수량, 장바구니를 세션에 등록하니까 session객체  */
 	@RequestMapping("cartAdd")
-	public ModelAndView add(Integer id, Integer quantity, HttpSession session) {
+	public ModelAndView add(String id, Integer quantity, HttpSession session) {
 		ModelAndView mav = new ModelAndView("cart/cart"); // view지정 (왜? cartAdd.jsp로 가는게 아니니까)
 		
 		// 선택된 상품 객체

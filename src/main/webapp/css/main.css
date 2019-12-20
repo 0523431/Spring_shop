@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+body {
+	background-color : #ffffff;
+}
 table {
 	width : 100%;
 	border-collapse : collapse;
@@ -10,11 +12,11 @@ th,td {
 	padding : 8px;
 }
 th {
-	background-color : #eb9f9f;
-	color : #f8ecc9;
+	background-color : #333030;
+	color : #e3dede;
 }
 td {
-	background-color : #f1bbba;
+	background-color : #e3dede;
 }
 caption {
 	color : #ffffff;

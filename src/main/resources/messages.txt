@@ -9,16 +9,18 @@ error.required.postcode=우편번호를 입력해 주세요
 error.required.address=주소를 입력해 주세요
 error.required.phoneno=전화번호를 입력해 주세요
 error.required.email=E-MAIL을 입력해 주세요
-error.required=입력항목에 오류가 발생했습니다.
+error.required=입력항목에 오류가 발생했습니다
 
-error.login.user=로그인이 필요합니다.
-error.login.id=아이디를 확인하세요.
-error.login.password=비밀번호를 확인하세요.
+error.login.user=로그인이 필요합니다
+error.login.id=아이디를 확인하세요
+error.login.password=비밀번호를 확인하세요
 
-user.userid.default=로그인 시 필요합니다.
-user.username.default=배송 시 필요합니다.
+user.userid.default=로그인 시 필요합니다
+user.username.default=배송 시 필요합니다
 
 typeMismatch.birthday=생년월일은 YYYY-MM-DD 형식으로 입력해 주세요
 
 error.duplicate.user=중복된 아이디입니다
-error.board.password=비밀번호가 틀림니다
+error.board.password=비밀번호가 틀립니다
+
+error.user.update=업데이트에 실패하셨습니다

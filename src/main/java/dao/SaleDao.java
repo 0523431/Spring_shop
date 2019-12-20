@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -63,5 +64,12 @@ public class SaleDao {
 		이런 과정이 필요없고 한번에 가능해짐  */
 		SqlParameterSource proparam = new BeanPropertySqlParameterSource(sale);
 		template.update(sql, proparam); // saleid 1건을 등록하게 됨
+	}
+
+	public List<Sale> list(String id) {
+		String sql = "select * from sale where userid = :userid";
+		param.clear();
+		param.put("userid", id);
+		return template.query(sql, param, mapper);
 	}
 }

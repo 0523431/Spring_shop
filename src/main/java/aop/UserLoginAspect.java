@@ -44,4 +44,24 @@ public class UserLoginAspect {
 		Object ret = joinPoint.proceed();
 		return ret;
 	}
+	
+	@Around("execution(* controller.User*.check*(..)) && args(id, session)")
+	public Object userIdCheck(ProceedingJoinPoint joinPoint, String id, HttpSession session) throws Throwable {
+
+		// session으로 부터 값을 받아서 로그인 여부를 확인
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser ==null) {
+			// class LoginException : 우리가 강제로 만든 예외 (로그인이 안된 경우)
+			throw new LoginException("userIdCheck : 로그인 후 거래하세요", "login.shop");
+		}
+		
+		if(!loginUser.getUserid().equals("headmaster") && !loginUser.getUserid().equals(id)) {
+			throw new LoginException("본인 정보만 조회 가능합니다.", "main.shop");
+		}
+		
+		Object ret = joinPoint.proceed();
+		return ret;
+
+	}
+	
 }

@@ -13,6 +13,17 @@ public class Sale {
 	// 상품정보를 가지고 있는 상태로 view(end.shop)에 넘어가게 됨
 	private List<SaleItem> itemList = new ArrayList<SaleItem>();
 	
+	// 추가
+	private long total;
+	
+	public long getTotal() {
+		long sum =0;
+		for(SaleItem saleItem : itemList) {
+			sum += saleItem.getItem().getPrice() * saleItem.getQuantity();
+		}
+		return sum;
+	}
+	
 	public int getSaleid() {
 		return saleid;
 	}

@@ -105,7 +105,7 @@ public class ItemController {
 	// get방식으로 들어오는 요청 중에 위에 형식이랑 맞지않으면 호출당함(그 외 요청정보)
 	// detail.shop / edit.shop / confirm.shop
 	@GetMapping("*")
-	public ModelAndView itemInfo(Integer id) { // id는 int, String도 가능
+	public ModelAndView itemInfo(String id) { // id는 int, Integer도 가능 근데 전체적으로 String으로 통일
 		ModelAndView mav = new ModelAndView(); // null이면 url에 맞춰서 들어가게 됨 =====> @RequestMapping("*")인 경우 null이어야함
 		
 		Item itemInfo = service.itemInfo(id);

@@ -71,7 +71,7 @@ public class ShopService {
 		}
 	}
 
-	public Item itemInfo(Integer id) { // 지역변수(여기서만 해당)
+	public Item itemInfo(String id) { // 지역변수(여기서만 해당)
 		return itemDao.itemInfo(id);
 	}
 
@@ -128,5 +128,25 @@ public class ShopService {
 			saleItemDao.insert(saleItem);
 		}
 		return sale;
+	}
+	
+	// user가 산 주문 목록
+	public List<Sale> salelist(String id) {
+		return saleDao.list(id);
+	}
+	
+	// 1개의 주문목록에 대한 아이템 리스트
+	public List<SaleItem> saleItemList(int saleid) {
+		return saleItemDao.list(saleid);
+	}
+
+	public void userUpdate(User user) {
+		userDao.update(user);
+		
+	}
+
+	public void userDelete(String userid) {
+		userDao.delete(userid);
+		
 	}	
 }

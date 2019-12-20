@@ -15,7 +15,7 @@
 <!--
 	post타입으로 userEntry.shop이 실행됨 (모든 파라미터를 가지고)
 	modelAttribute="user" : 유효성 검증을 위해 필요한 객체 user
-							UserEntryController.java에서 
+							UserController.java에서 
  -->
 <form:form modelAttribute="user" method="post" action="userEntry.shop">
 	<spring:hasBindErrors name="user">
