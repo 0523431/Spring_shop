@@ -24,6 +24,7 @@
 
 <form action="delete.shop" method="post" name="deleteform">
 	<input type="hidden" name="userid" value="${param.id}">
+	<input type="hidden" name="username" value="${user.username}">
 	비밀번호 <input type="password" name="password">
 	<a href="javascript:deleteform.submit()">[회원탈퇴]</a>
 </form>

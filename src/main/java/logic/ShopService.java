@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.BoardDao;
 import dao.ItemDao;
 import dao.SaleDao;
 import dao.SaleItemDao;
@@ -31,6 +32,9 @@ public class ShopService {
 	
 	@Autowired
 	private SaleItemDao saleItemDao;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	public List<Item> getItemList() {
 		return itemDao.list();
@@ -56,6 +60,8 @@ public class ShopService {
 	// 		picture.transferTo(new File(uploadPath + orgFile));
 	// 알아서 업로드된 파일의 내용을 파일로 생성시킴
 	// item.getPicture() == MultipartFile picture == 업로드된 파일의 내용
+	
+	// uploadFileCreate(파일내용, 위치, 경로)
 	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String orgFile = picture.getOriginalFilename();
 		String uploadPath = request.getServletContext().getRealPath("/") + path;
@@ -148,5 +154,35 @@ public class ShopService {
 	public void userDelete(String userid) {
 		userDao.delete(userid);
 		
+	}
+
+	public int boardcount() {
+		return boardDao.count();
+	}
+
+	public List<Board> boardlist(Integer pageNum, int limit) {
+		return boardDao.list(pageNum, limit);
+	}
+
+	public void boardWrite(Board board, HttpServletRequest request) {
+		if(board.getFile1() !=null && !board.getFile1().isEmpty()) {
+			// uploadFileCreate() 메서드 위에 있음 | 상품업로드할때 썼던 메서드
+			// uploadFileCreate(파일내용, 위치, 경로)
+			uploadFileCreate(board.getFile1(), request, "board/file/");
+			// file1의 값이 fileurl에 들어감 그래서 dao에서 file1의 값은 fileurl에서 가져와야함
+			board.setFileurl(board.getFile1().getOriginalFilename());
+		}
+		// 현재 등록된 게시물 번호의 최대값
+		int max = boardDao.maxnum();
+		board.setNum(++max);
+		board.setGrp(max); // 원글이니까 게시물번호와 동일한 그룹값이 됨
+		boardDao.insert(board);
+	}
+
+	public Board getBoard(Integer num, HttpServletRequest request) {
+		if(request.getRequestURI().contains("detail.shop")) {
+			boardDao.readcntadd(num);
+		}
+		return boardDao.selectOne(num);
 	}	
 }

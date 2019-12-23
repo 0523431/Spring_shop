@@ -205,7 +205,7 @@ public class UserController {
 	}
 	
 	// parameter가 2개 필요해 ==> 아이디, 비밀번호
-	// User user 객체로 받아도 되고
+	// User user 객체로 받아도 되고 (아이디와 비밀번호만 있음 == form에서 그것만 넘겨줌)
 	// String userid(히든), String password 이렇게 따로 받아도 됨
 	@PostMapping("delete")
 	public ModelAndView checkdelete(User user, HttpSession session) {
@@ -222,9 +222,14 @@ public class UserController {
 			if(loginUser.getUserid().equals("headmaster")) {
 				mav.setViewName("redirect:/admin/list.shop");
 			} else {
+				System.out.println(user.getUserid());
+				System.out.println(user.getPassword());
+				System.out.println(user.getUsername());
 				// 로그아웃
+				mav.addObject("msg", loginUser.getUsername() + " 회원님, 탈퇴! GOODBYE" + user.getUsername() + "getUsername()으로 불러움");
 				session.invalidate();
-				throw new LoginException("탈퇴! GOODBYE", "login.shop");
+				mav.addObject("url", "login.shop");
+				mav.setViewName("alert");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

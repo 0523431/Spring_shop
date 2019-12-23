@@ -20,12 +20,12 @@ public class Item {
 	@NotEmpty(message="상품설명을 입력하세요") // 문자열로 인식
 	@Size(min=10, max=15, message="10자이상 15자 이하 가능")
 	private String description;
-	private String pictureUrl;
-	
+		
 	// multipartResolver
 	// 업로드된 파일의 내용을 저장함
 	// picture == add.jsp의 이미지 업로드 name과 이름이 동일해야함
 	private MultipartFile picture;
+	private String pictureUrl;
 	
 	// getter, setter, toString
 	public MultipartFile getPicture() {

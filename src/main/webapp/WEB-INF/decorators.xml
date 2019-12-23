@@ -7,5 +7,6 @@
 		
 	<!-- layout 예외 설정 -->
 	<excludes>
+		<pattern>/board/imgupload*</pattern>
 	</excludes>
 </decorators>

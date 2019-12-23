@@ -36,7 +36,7 @@
 		prefix : WEB-INF/view/index
 		suffix : WEB-INF/view/index.jsp
 		그래서
-		webapp/WEB-INF/view/index.jsp의 경로를 알 수 있지? ㅇㅇ .. ㅠㅠㅠ
+		webapp/WEB-INF/view/index.jsp의 경로를 알 수 있지 ㅇㅇ .. ㅠㅠㅠ
 	-->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass">
@@ -73,6 +73,7 @@
 			<value>
 				exception.LoginException=exception
 				exception.CartEmptyException=exception
+				exception.BoardException=exception
 			</value>
 		</property>
 	</bean>
