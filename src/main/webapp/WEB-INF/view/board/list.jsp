@@ -7,6 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 목록</title>
+<script>
+	// 검색 후, 그 결과를 페이지에 유지시켜주는 메서드함수
+	function listdo(page) { // listdo 메서드에 page값을 넣고
+		document.serchform.pageNum.value = page; // pageNum의 value값을 바꿔주는 거야
+		document.serchform.submit(); // form을 submit해주는 거야
+	}
+</script>
 </head>
 <body>
 <table>
@@ -20,6 +27,10 @@
 					<option value="name">작성자</option>
 					<option value="content">내용</option>
 				</select>
+				<%-- 검색어 유지 --%>
+				<script type="text/javascript">
+					document.serchform.searchtype.value = "${param.searchtype}";
+				</script>
 				<input type="text" name="searchcontent" value="${param.searchcontent}" style="width:250px;">
 				<input type="submit" value="검색">
 			</form>
@@ -58,7 +69,7 @@
 				</td>
 				<td>${board.name}</td>
 				<td>
-					${board.regdate}
+					<fmt:formatDate value="${board.regdate}" pattern="yy년 MM월 dd일 HH:mm" /> 
 				</td>
 				<td>${board.readcnt}</td>
 			</tr>
@@ -66,7 +77,8 @@
 		<%-- 페이징 작업 --%>
 		<tr><td colspan="5">
 			<c:if test="${pageNum >1}">
-				<a href="list.shop?pageNum=${pageNum -1}">[이 전]</a>
+				<%-- <a href="list.shop?pageNum=${pageNum -1}">[이 전]</a> --%>
+				<a href="javascript:listdo(${pageNum -1})">[이 전]</a>
 			</c:if>
 			<c:if test="${pageNum <=1}">
 				<%-- 이전으로 넘어갈 페이지가 없으니까 하이퍼링크 xxx --%>
@@ -78,11 +90,13 @@
 					[${a}]
 				</c:if>
 				<c:if test="${a !=pageNum}">
-					<a href="list.shop?pageNum=${a}">[${a}]</a>
+					<%-- <a href="list.shop?pageNum=${a}">[${a}]</a> --%>
+					<a href="javascript:listdo(${a})">[${a}]</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${pageNum <maxpage}">
-				<a href="list.shop?pageNum=${pageNum +1}">[다 음]</a>
+				<%-- <a href="list.shop?pageNum=${pageNum +1}">[다 음]</a> --%>
+				<a href="javascript:listdo(${pageNum +1})">[다 음]</a>
 			</c:if>
 			<c:if test="${pageNum >=maxpage}">
 				<%-- 다음으로 넘어갈 페이지가 없으니까 하이퍼링크 xxx --%>

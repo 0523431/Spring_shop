@@ -148,26 +148,24 @@ public class ShopService {
 
 	public void userUpdate(User user) {
 		userDao.update(user);
-		
 	}
 
 	public void userDelete(String userid) {
-		userDao.delete(userid);
-		
+		userDao.delete(userid);	
 	}
 
-	public int boardcount() {
-		return boardDao.count();
+	public int boardcount(String searchtype, String searchcontent) {
+		return boardDao.count(searchtype, searchcontent);
 	}
 
-	public List<Board> boardlist(Integer pageNum, int limit) {
-		return boardDao.list(pageNum, limit);
+	public List<Board> boardlist(Integer pageNum, int limit, String searchtype, String searchcontent) {
+		return boardDao.list(pageNum, limit, searchtype, searchcontent);
 	}
 
 	public void boardWrite(Board board, HttpServletRequest request) {
 		if(board.getFile1() !=null && !board.getFile1().isEmpty()) {
 			// uploadFileCreate() 메서드 위에 있음 | 상품업로드할때 썼던 메서드
-			// uploadFileCreate(파일내용, 위치, 경로)
+			// uploadFileCreate(파일객체, 위치, 경로)
 			uploadFileCreate(board.getFile1(), request, "board/file/");
 			// file1의 값이 fileurl에 들어감 그래서 dao에서 file1의 값은 fileurl에서 가져와야함
 			board.setFileurl(board.getFile1().getOriginalFilename());
@@ -184,5 +182,41 @@ public class ShopService {
 			boardDao.readcntadd(num);
 		}
 		return boardDao.selectOne(num);
+	}
+	
+	public Board getBoard(int num) {
+		return boardDao.selectOne(num);
 	}	
+	
+	public void boardReply(Board board) {
+		// 기존에 있던 모든 글에 대한 step (밀기)
+		boardDao.grpstepAdd(board.getGrp(), board.getGrpstep());
+		
+		int max = boardDao.maxnum();
+		board.setNum(++max);
+		
+		// 새로 쓴 답글의 step
+		board.setGrplevel(board.getGrplevel()+1);
+		board.setGrpstep(board.getGrpstep()+1);
+		
+		boardDao.insert(board);
+	}
+
+	public void boardUpdate(Board board, HttpServletRequest request) {
+		if(board.getFile1() !=null && !board.getFile1().isEmpty()) {
+			// uploadFileCreate() 메서드 위에 있음 | 상품업로드할때 썼던 메서드
+			// uploadFileCreate(파일객체, 위치, 경로)
+			uploadFileCreate(board.getFile1(), request, "board/file/");
+			// file1의 값이 fileurl에 들어감 그래서 dao에서 file1의 값은 fileurl에서 가져와야함
+			board.setFileurl(board.getFile1().getOriginalFilename());
+		}
+		
+		boardDao.update(board);
+	}
+
+	public void boardDelete(int num) {
+		boardDao.delete(num);
+	}
+
+
 }
