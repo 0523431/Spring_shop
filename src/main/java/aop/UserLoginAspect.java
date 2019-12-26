@@ -61,7 +61,6 @@ public class UserLoginAspect {
 		
 		Object ret = joinPoint.proceed();
 		return ret;
-
 	}
 	
 }

@@ -144,6 +144,7 @@
 	</c:if>
 	<c:if test="${loginUser.userid =='headmaster'}">
 		<a href="../admin/list.shop">[회원목록]</a>
+		<%-- admin controller가 필요하고 view단은 list.shop이 됨 --%>
 		&nbsp;&nbsp;&nbsp;
 	</c:if>
 </div>

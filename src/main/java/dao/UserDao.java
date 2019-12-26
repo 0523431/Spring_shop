@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -87,5 +88,34 @@ public class UserDao {
 		param.clear();
 		param.put("userid", userid);
 		template.update(sql, param);		
+	}
+
+
+	public List<User> adminlist() {
+		String sql = "select * from useraccount";
+		return template.query(sql, mapper);
+	}
+	
+	public List<User> adminlist(String[] idchks) {
+		String sql = "select * from useraccount where userid in (";
+		for(int i=0; i<idchks.length; i++) {
+			sql += "'" + idchks[i] + ( (i==idchks.length-1)? "'":"'," );
+		}
+		sql += ")";
+		
+		param.clear();
+		param.put("idchks", idchks);
+		return template.query(sql, param, mapper);
+	}
+	
+	public List<User> adminlist2(String[] idchks) {
+		String chkid = "";
+		for(int i=0; i<idchks.length; i++) {
+			chkid += "'" + idchks[i] + ( (i==idchks.length-1)? "'":"'," );
+		}
+		String sql = "select * from useraccount where userid in (" + chkid + ")";
+		
+		param.clear();
+		return template.query(sql, mapper);
 	}
 }

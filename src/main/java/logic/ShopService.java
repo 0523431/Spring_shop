@@ -218,5 +218,14 @@ public class ShopService {
 		boardDao.delete(num);
 	}
 
+	public List<User> adminlist() {
+//		return adminDao.list();
+		return userDao.adminlist();
+	}
+
+	public List<User> adminlist(String[] idchks) {
+		return userDao.adminlist(idchks);
+	}
+
 
 }
