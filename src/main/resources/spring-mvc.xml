@@ -21,13 +21,22 @@
 	
 	<!-- 3개의 패키지 안에서는 @Component로 객체화 할 거야 -->
 	<!-- aop패키지 추가 : 로그인 확인용 -->
-	<context:component-scan base-package="controller, logic, dao, aop" />
+	<!-- websocket 추가 : 채팅 -->
+	<context:component-scan base-package="controller, logic, dao, aop, websocket" />
 	
 	<!-- mvc환경에서 annotation 설정 -->
 	<mvc:annotation-driven />
 	
 	<!-- AOP 설정 : 로그인확인을 위해서 -->
 	<aop:aspectj-autoproxy />
+	
+	<!-- 채팅 : websocket관련 설정
+		 ws://localhost:8080/shop03/chatting.shop
+		  즉, 뒤에 chatting.shop으로 들어오면, 핸들러를 echoHandler 객체를 사용할거야 (호출)
+	-->
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/chatting.shop"/>
+	</websocket:handlers>
 	
 	<!-- url과 Controller 연결 설정  | 어떻게? 이름으로 연결할 수 있어 -->
 	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
@@ -91,9 +100,4 @@
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		  p:maxUploadSize="104857600"
 		  p:maxInMemorySize="10485760" />
-
-	<!-- 채팅 : websocket설정 -->
-	<!-- <websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/chatting.shop"/>
-	</websocket:handlers> -->
 </beans>

@@ -114,6 +114,12 @@
 		<artifactId>slf4j-api</artifactId>
 		<version>1.7.25</version>
 	</dependency>
+	<!-- spring websocket을 위한 설정 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-websocket</artifactId>
+		<version>4.3.20.RELEASE</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>shop03</finalName>
